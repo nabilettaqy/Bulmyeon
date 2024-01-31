@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/insomnia.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='img/safari-pinned-tab.svg') }}" color="#211f30">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#211f30">
+    <title>currentlyonciawatchlist</title>
+    <meta name="description" content="Vote for the most hottest girl!">
+    <meta name="keywords" content="Bulmyeon, hot, girl, vote, game, hottest, beautiful, memes, vice, influenceurs, female, women, pink, aesthetic, beauty, y2k, leaderboard, latest, dark">
+    <meta name="author" content="currentlyonciawatchlist">
+    <meta property="og:title" content="Bulmyeon">
+    <meta property="og:description" content="Vote for the most hottest girl!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Bulmyeon.com/">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+    <div class="logo-container">
+        <a href="{{ url_for('currentlyonciawatchlist') }}"><img class="logo me" src="{{ url_for('static', filename='img/menotext.png') }}" alt="Bulmyeon logo"></a>
+    </div>
+    <small class="footer-text">I just wanna feel something...</small>
+    <div class="white">
+        <nav aria-label="breadcrumb" style="--pico-nav-breadcrumb-divider: '';">
+            <ul>
+                <li><small><a href="https://twitter.com/currentlycia" target="_blank">Twitter</a></small></li>
+                <li><small><a href="{{ url_for('index') }}" target="_blank">Bulmyeon</a></small></li>
+                <li><small><a href="https://t.me/currentlyonciawatchlist" target="_blank">Telegram</a></small></li>
+                <li><small><a href="https://github.com/currentlyonciawatchlist" target="_blank">Github</a></small></li>
+            </ul>
+        </nav>
+    </div>
+    <article class="info-container text-container">
+        <h1>Who am i ?</h1>
+        <p>Nobody cares 🙃</p>
+        <p>Here's instead some awesome Artworks by <a href="https://www.instagram.com/stephaniepriscilla" target="_blank">@stephaniepriscilla</a>:</p>
+        <img class="error-image" src="{{ url_for('static', filename='img/artworks/art1.jpg') }}">
+        <img class="error-image" src="{{ url_for('static', filename='img/artworks/art2.jpg') }}">
+        <img class="error-image" src="{{ url_for('static', filename='img/artworks/art3.jpg') }}">
+        <img class="error-image" src="{{ url_for('static', filename='img/artworks/art4.jpg') }}">
+        <P>And also don't forget that reality is often disappointing.</P>
+    </article>
+    <br>
+    <br>
+    <div style="text-align: center; margin-top: 10px;">
+        <a href="{{ url_for('index') }}"><button class="girl-button2">Back to Home</button></a>
+    </div>
+    <br>
+    <br>
+    <div class="footer-container">
+        <small class="footer-text">2024 Bulmyeon.com | Made with <img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img> by <a href="{{ url_for('currentlyonciawatchlist') }}" target="_blank">currentlyonciawatchlist</a></small>
+    </div>
+</body>

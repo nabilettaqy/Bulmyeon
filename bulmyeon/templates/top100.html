@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='img/safari-pinned-tab.svg') }}" color="#211f30">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#211f30">
+    <title>Bulmyeon :: Top 100</title>
+    <meta name="description" content="Vote for the most hottest girl!">
+    <meta name="keywords" content="Bulmyeon, hot, girl, vote, game, hottest, beautiful, memes, vice, influenceurs, female, women, pink, aesthetic, beauty, y2k, leaderboard, latest, dark">
+    <meta name="author" content="currentlyonciawatchlist">
+    <meta property="og:title" content="Bulmyeon">
+    <meta property="og:description" content="Vote for the most hottest girl!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Bulmyeon.com/">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+    <div class="logo-container">
+        <a href="{{ url_for('index') }}"><img class="logo" src="{{ url_for('static', filename='img/logohd-min.png') }}" alt="Bulmyeon logo"></a>
+        <a href="{{ url_for('index') }}"><img class="logo text-logo" src="{{ url_for('static', filename='img/TempLogohd.png') }}" alt="Bulmyeon title"></a>
+    </div>
+    <div class="ticker-wrap ticker-wrap2">
+        <div class="ticker ticker-1">
+            {% for girl in random_girls %}
+                {% if loop.index % 2 == 1 %}
+                    <span class="item-collection-1">
+                {% endif %}
+                        <span class="item"><a href="{{ url_for('girl_page', girl_name=girl.name) }}"><img decoding="async" class="ticker-image" src="{{ girl.image_url }}" alt="{{ girl.name }}" loading="lazy" width="50" height="50"></a>{% if girl.status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-2" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}{{ girl.name }}</span>
+                {% if loop.index % 2 == 0 or loop.last %}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <!--
+    <div class="ads-container ads-container2">
+        <p style="text-align: center; margin-bottom: 0;"><small>ads:</small></p>
+        <a href="{{ ad_link }}" target="_blank"><img class="ads" src="{{ ad_path }}" alt="ads" decoding="async" loading="lazy" width="600" height="80"></a>
+        <p style="text-align: center; margin-bottom: 0;"><small>Wants to add your ad? <a href="#">Click here</a></small></p>
+    </div>
+    -->
+    <div class="allgirls">
+        <h1>Top 100</h1>
+        <br>
+        <table class="allgirls-table" style="margin: auto; text-align: center;">
+                {% for girl in all_girls %}
+                    <tr>
+                        <td class="top100-girl">
+                        <a href="{{ url_for('girl_page', girl_name=girl.name) }}"><img decoding="async" class="allgirls-image" style="margin-right: 10px;" src="{{ girl.image_url }}" alt="{{ girl.name }}" loading="lazy" width="50" height="50"></a>
+                        {% if girl.status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-2" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}<a href="{{ url_for('girl_page', girl_name=girl.name) }}" style="margin-right: 30px;">{{ girl.name }}</a>
+                        <p class="allgirls-votes">Vote: <strong>{{ girl.formatted_votes }}</strong> {% if total_votes > 0 %}({{ (girl.votes / total_votes * 100)|round(2) }}%){% endif %}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+        <a href="{{ url_for('index') }}"><button class="girl-button2">Back to Home</button></a>
+    </div>
+    <br>
+    <br>
+    <a href="#" target="_blank"><small>Github</small></a>
+    <nav aria-label="breadcrumb" style="--pico-nav-breadcrumb-divider: '|';">
+        <ul class="centered-links">
+            <li><small><a href="/tos">TOS</a></small></li>
+            <li><small><a href="/privacy">Privacy</a></small></li>
+            <li><small><a href="/verify">Verify</a></small></li>
+            <li><small><a href="/api">API</a></small></li>
+        </ul>
+    </nav>
+    <div class="footer-container">
+        <small class="footer-text">2024 Bulmyeon.com | Made with <img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img> by <a href="{{ url_for('currentlyonciawatchlist') }}" target="_blank">currentlyonciawatchlist</a></small>
+    </div>
+</body>
+</html>

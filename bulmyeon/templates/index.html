@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <script src="{{ url_for('static', filename='js/show.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/loadinganim.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='img/safari-pinned-tab.svg') }}" color="#211f30">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#211f30">
+    <title>Bulmyeon</title>
+    <meta name="description" content="Vote for the most hottest girl!">
+    <meta name="keywords" content="Bulmyeon, hot, girl, vote, game, hottest, beautiful, memes, vice, influenceurs, female, women, pink, aesthetic, beauty, y2k, leaderboard, latest, dark">
+    <meta name="author" content="currentlyonciawatchlist">
+    <meta property="og:title" content="Bulmyeon">
+    <meta property="og:description" content="Vote for the most hottest girl!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Bulmyeon.com/">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+    <div class="logo-container">
+        <a href="{{ url_for('index') }}"><img class="logo" src="{{ url_for('static', filename='img/logohd-min.png') }}" alt="Bulmyeon logo"></a>
+        <a href="{{ url_for('index') }}"><img class="logo text-logo" src="{{ url_for('static', filename='img/TempLogohd.png') }}" alt="Bulmyeon title"></a>
+    </div>
+    <br>
+    {% if girl1 and girl2 %}
+    <h2 style="text-align: center;">Who's bringing the heat? {% if girl1.status == "verified" %}<strong class="verified-text"><img class="verified-icon" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}<a href="{{ url_for('girl_page', girl_name=girl1.name) }}">{{ girl1.name }}</a> or {% if girl2.status == "verified" %}<strong class="verified-text"><img class="verified-icon" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}<a href="{{ url_for('girl_page', girl_name=girl2.name) }}">{{ girl2.name }}</a></h2>
+    <small clase="tiny-text" style="text-align: center; font-size: small; margin-top: 0;">(to vote, simply double click on the girl's image)</small>
+    <br>
+    <div class="main-girls">
+        <div class="girl-container">
+            <form action="{{ url_for('vote', girl_name=girl1.name) }}" method="post">
+                <input type="hidden" name="other_girl_name" value="{{ girl2.name }}">
+                {% if girl1.status == "verified" %}
+                <button class="girl-button" type="submit"><img id="girl1-image" decoding="async" class="girl-image verified-image" onmouseover="showInfo()" onmouseout="hideInfo()" ontouchstart="showInfo()" ontouchend="hideInfo()" src="{{ girl1.image_url }}" alt="Vote for {{ girl1.name }}"></button>
+                {% else %}
+                <button class="girl-button" type="submit"><img id="girl1-image" decoding="async" class="girl-image" onmouseover="showInfo()" onmouseout="hideInfo()" ontouchstart="showInfo()" ontouchend="hideInfo()" src="{{ girl1.image_url }}" alt="Vote for {{ girl1.name }}"></button>
+                {% endif %}
+            </form>
+            {% if total_votes > 0 %}
+                {% set percentage_girl1 = ((girl1.votes / total_votes) * 100) %}
+                {% set percentage_girl2 = ((girl2.votes / total_votes) * 100) %}
+                {% set percentage_total = 100 %}
+                {% if girl1.status == "verified" %}
+                <p id="girl-info"><strong class="verified-text"><img class="verified-icon verified-icon-2" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong><a id="girl1-link" href="{{ url_for('girl_page', girl_name=girl1.name) }}">{{ girl1.name }}</a> <strong>{{ (percentage_girl1 * (percentage_total / (percentage_girl1 + percentage_girl2))) | round | int }} %</strong></p>
+                {% else %}
+                <p id="girl-info"><a id="girl1-link" href="{{ url_for('girl_page', girl_name=girl1.name) }}">{{ girl1.name }}</a> <strong>{{ (percentage_girl1 * (percentage_total / (percentage_girl1 + percentage_girl2))) | round | int }} %</strong></p>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="girl-container">
+            <form action="{{ url_for('vote', girl_name=girl2.name) }}" method="post">
+                <input type="hidden" name="other_girl_name" value="{{ girl1.name }}">
+                {% if girl2.status == "verified" %}
+                <button class="girl-button" type="submit"><img id="girl2-image" decoding="async" class="girl-image verified-image" onmouseover="showGirl2Info()" onmouseout="hideGirl2Info()" ontouchstart="showGirl2Info()" ontouchend="hideGirl2Info()" src="{{ girl2.image_url }}" alt="Vote for {{ girl2.name }}"></button>
+                {% else %}
+                <button class="girl-button" type="submit"><img id="girl2-image" decoding="async" class="girl-image" onmouseover="showGirl2Info()" onmouseout="hideGirl2Info()" ontouchstart="showGirl2Info()" ontouchend="hideGirl2Info()" src="{{ girl2.image_url }}" alt="Vote for {{ girl2.name }}"></button>
+                {% endif %}
+            </form>
+            {% if total_votes > 0 %}
+                {% set percentage_girl1 = ((girl1.votes / total_votes) * 100) %}
+                {% set percentage_girl2 = ((girl2.votes / total_votes) * 100) %}
+                {% set percentage_total = 100 %}
+                {% if girl2.status == "verified" %}
+                <p id="girl2-info"><strong class="verified-text"><img class="verified-icon  verified-icon-2" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong><a id="girl2-link" href="{{ url_for('girl_page', girl_name=girl2.name) }}">{{ girl2.name }}</a> <strong>{{ (percentage_girl2 * (percentage_total / (percentage_girl1 + percentage_girl2))) | round | int }} %</strong></p>
+                {% else %}
+                <p id="girl2-info"><a id="girl2-link" href="{{ url_for('girl_page', girl_name=girl2.name) }}">{{ girl2.name }}</a> <strong>{{ (percentage_girl2 * (percentage_total / (percentage_girl1 + percentage_girl2))) | round | int }} %</strong></p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    {% else %}
+        <h2>No girls available for voting. Please add some girls!</h2>
+    {% endif %}
+    <p style="text-align: center;"><small>Wants to be <strong class="verified-text"><img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong> verified? <a href="/verify">Click here</a></small></p>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <article class="message-box messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+        </article>
+        <script src="{{ url_for('static', filename='js/messagebox.js') }}"></script>
+    {% endif %}
+    {% endwith %}
+    <br>
+    <div class="ticker-wrap ticker-wrap2">
+        <div class="ticker ticker-1">
+            {% for girl in random_girls %}
+                {% if loop.index % 2 == 1 %}
+                    <span class="item-collection-1">
+                {% endif %}
+                        <span class="item"><a href="{{ url_for('girl_page', girl_name=girl.name) }}"><img class="ticker-image" src="{{ girl.image_url }}" alt="{{ girl.name }}" decoding="async" loading="lazy" width="50" height="50"></a>{% if girl.status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-2" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}{{ girl.name }}</span>
+                {% if loop.index % 2 == 0 or loop.last %}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="leaderboard-container">
+        <h2 style="text-align: center;">Leaderboard (Top 10)</h2>
+        <div class="latest-votes-columns">
+            <table class="special-table" style="margin: auto; width: 100%;">
+                {% for girl in odd_leaderboard %}
+                    <tr>
+                        <td class="odd-leaderboard-girl" style="width: 50%; box-sizing: border-box;">
+                            {% if loop.index <= even_leaderboard|length %}
+                                {% set even_girl = even_leaderboard[loop.index - 1] %}
+                                <a href="{{ url_for('girl_page', girl_name=even_girl.name) }}"><img class="leaderboard-image" src="{{ even_girl.image_url }}" alt="{{ even_girl.name }}" decoding="async" loading="lazy" width="50" height="50"></a>
+                                {% if even_girl.status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}<a class="girl-links" href="{{ url_for('girl_page', girl_name=even_girl.name) }}">{{ even_girl.name }}</a> - Votes: <strong>{{ even_girl.formatted_votes }}</strong>
+                                {% if total_votes > 0 %}
+                                    - <strong>( {{ (even_girl.votes / total_votes * 100)|round(2) }}% )</strong>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td class="odd-leaderboard-girl" style="width: 50%; box-sizing: border-box;">
+                            <a href="{{ url_for('girl_page', girl_name=girl.name) }}"><img class="leaderboard-image" src="{{ girl.image_url }}" alt="{{ girl.name }}" decoding="async" loading="lazy" width="50" height="50"></a>
+                            {% if girl.status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}<a class="girl-links" href="{{ url_for('girl_page', girl_name=girl.name) }}">{{ girl.name }}</a> - Votes: <strong>{{ girl.formatted_votes }}</strong>
+                            {% if total_votes > 0 %}
+                                - <strong>( {{ (girl.votes / total_votes * 100)|round(2) }}% )</strong>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div style="clear: both;"></div> 
+        <p style="text-align: center; margin-top: 20px;">Total Votes: <strong>{{ total_votes_formatted }}</strong> - Girls: <strong>{{ total_girls_formatted }}</strong></p>
+        <p style="text-align: center;"><a href="{{ url_for('top100') }}">View Top 100 Girls</a></p>
+    </div>
+    <!--
+    <div class="ads-container">
+        <p style="text-align: center; margin-bottom: 0;"><small>ads:</small></p>
+        <a href="{{ ad_link }}" target="_blank"><img class="ads" src="{{ ad_path }}" alt="ads" decoding="async" loading="lazy" width="auto" height="50"></a>
+        <p style="text-align: center; margin-bottom: 0;"><small>Wants to add your ad? <a href="#">Click here</a></small></p>
+    </div>
+    -->
+    <div class="leaderboard-container latestvotes-container">
+        <h2 style="text-align: center; margin-bottom: 0px;">Latest Votes</h2>
+        <br>
+        {% if latest_votes %}
+            <div class="latest-votes-columns">
+                <table class="special-table" style="margin: auto; width: 100%;">
+                    {% for vote in latest_votes %}
+                        {% if loop.index % 2 == 1 %}
+                            <tr>
+                        {% endif %}
+                        <td class="odd-leaderboard-girl" style="width: 50%; box-sizing: border-box;">
+                            <a href="{{ url_for('girl_page', girl_name=vote.voted_girl_name) }}"><img class="leaderboard-image" src="{{ vote.voted_girl_image_url }}" alt="{{ vote.voted_girl_name }}" decoding="async" loading="lazy" width="50" height="50"></a>
+                            {% if vote.voted_girl_status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}<a class="girl-links" href="{{ url_for('girl_page', girl_name=vote.voted_girl_name) }}">{{ vote.voted_girl_name }}</a>
+                            <strong class="girl-date">{{ vote.voted_date.strftime('%Y/%m/%d %H:%M:%S') }}</strong>
+                        </td>
+                        {% if loop.index % 2 == 0 or loop.last %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <p>No recent votes available.</p>
+        {% endif %}
+    </div>
+    <br>
+    <div class="ticker-wrap">
+        <div class="ticker">
+            {% for girl in new_girls %}
+                {% if loop.index % 2 == 1 %}
+                    <span class="item-collection-1">
+                {% endif %}
+                        <span class="item"><a href="{{ url_for('girl_page', girl_name=girl.name) }}"><img class="ticker-image" src="{{ girl.image_url }}" alt="{{ girl.name }}" decoding="async" loading="lazy" width="50" height="50"></a>{% if girl.status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-2" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}{{ girl.name }}</span>
+                {% if loop.index % 2 == 0 or loop.last %}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="propose-container">
+        <h2 style="text-align: center; margin-bottom: 30px;">Upload Girl</h2>
+        <form class="select-td" id="uploadForm" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data">
+            <label for="girl_name">Girl's Name:</label>
+            <br>
+            <input class="girl-input" type="text" name="girl_name" placeholder="Anything featuring a girl, real or fictional..." required>
+            <br>
+            <label for="promo_link">Social Link (Optional):</label>
+            <br>
+            <input class="girl-input" type="text" name="promo_link" placeholder="ex: Instagram, Tik-tok, OnlyFans...">
+            <br>
+            <label for="image_file">Girl's Image:</label>
+            <br>
+            <input type="file" id="fileInput" class="girlimage-input" name="image_file" accept="image/*" required>
+            <div style="text-align: center; margin-top: 10px;">
+                <button id="submitButton"  class="girl-button2 submit-button" type="submit">Submit</button>
+            </div>
+        </form>
+        <small><p style="text-align: center; font-size: small; margin-top: 15px; margin-bottom: 0;">By submitting a girl, you agree to the <a href="/tos">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p></small>
+    </div>
+    <br>
+    <a href="#" target="_blank"><small>Github</small></a>
+    <nav aria-label="breadcrumb" style="--pico-nav-breadcrumb-divider: '|';">
+        <ul class="centered-links">
+            <li><small><a href="/tos">TOS</a></small></li>
+            <li><small><a href="/privacy">Privacy</a></small></li>
+            <li><small><a href="/verify">Verify</a></small></li>
+            <li><small><a href="/api">API</a></small></li>
+        </ul>
+    </nav>
+    <div class="footer-container">
+        <small class="footer-text">2024 Bulmyeon.com | Made with <img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img> by <a href="{{ url_for('currentlyonciawatchlist') }}" target="_blank">currentlyonciawatchlist</a></small>
+    </div>
+</body>
+</html>

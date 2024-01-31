@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='img/safari-pinned-tab.svg') }}" color="#211f30">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#211f30">
+    <title>Bulmyeon :: API</title>
+    <meta name="description" content="Vote for the most hottest girl!">
+    <meta name="keywords" content="Bulmyeon, hot, girl, vote, game, hottest, beautiful, memes, vice, influenceurs, female, women, pink, aesthetic, beauty, y2k, leaderboard, latest, dark">
+    <meta name="author" content="Insomnia">
+    <meta property="og:title" content="currentlyonciawatchlist">
+    <meta property="og:description" content="Vote for the most hottest girl!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Bulmyeon.com/">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+    <div class="logo-container">
+        <a href="{{ url_for('index') }}"><img class="logo" src="{{ url_for('static', filename='img/logohd-min.png') }}" alt="Bulmyeon logo"></a>
+        <a href="{{ url_for('index') }}"><img class="logo text-logo" src="{{ url_for('static', filename='img/TempLogohd.png') }}" alt="Bulmyeon title"></a>
+    </div>
+    <div class="ticker-wrap ticker-wrap2">
+        <div class="ticker ticker-1">
+            {% for girl in random_girls %}
+                {% if loop.index % 2 == 1 %}
+                    <span class="item-collection-1">
+                {% endif %}
+                        <span class="item"><a href="{{ url_for('girl_page', girl_name=girl.name) }}"><img decoding="async" class="ticker-image" src="{{ girl.image_url }}" alt="{{ girl.name }}" loading="lazy" width="50" height="50"></a>{% if girl.status == "verified" %}<strong class="verified-text"><img class="verified-icon verified-icon-2" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img></strong>{% endif %}{{ girl.name }}</span>
+                {% if loop.index % 2 == 0 or loop.last %}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <!--
+    <div class="ads-container ads-container2">
+        <p style="text-align: center; margin-bottom: 0;"><small>ads:</small></p>
+        <a href="{{ ad_link }}" target="_blank"><img class="ads" src="{{ ad_path }}" alt="ads" decoding="async" loading="lazy" width="600" height="80"></a>
+        <p style="text-align: center; margin-bottom: 0;"><small>Wants to add your ad? <a href="#">Click here</a></small></p>
+    </div>
+    -->
+    <article class="info-container text-container">
+        <h1 class="info-title">API</h1>
+        <p class="text-primary">
+            <p>This is a public API, and everyone can access the data.</p>
+        
+            <h2>Authentication</h2>
+            <p>This is a public API, and no authentication is required to access the data. All endpoints are open for public access.</p>
+        
+            <h2>Response Format</h2>
+            <p>The API returns data in JSON format. Please refer to individual endpoint documentation for specific response details.</p>
+        
+            <h2>Rate Limiting</h2>
+            <p>There is no rate limiting on this public API. However, we encourage responsible use to ensure fair access for all users.</p>
+        
+            <h2>Support</h2>
+            <p>If you have any questions or need assistance, please contact me at my Telegram <a href="https://t.me/currentlyonciawatchlist" target="_blank">currentlyonciawatchlist</a> or my Twitter <a href="https://twitter.com/currentlycia" target="_blank">@currentlycia</a>.</p>
+        </p>
+        <details>
+            <summary role="button" class="outline">API Endpoints</summary>
+            <p class="text-primary">
+                <article class="info-container text-container">
+                    <h3>GET /api/v1/latestvotes</h3>
+                    <p>Get vote results.</p>
+                
+                    <h3>GET /api/v1/girl</h3>
+                    <p>Get all girls data.</p>
+                
+                    <h3>GET /api/v1/girl/{girl_name}</h3>
+                    <p>Get a specific girl data.</p>
+                
+                    <h3>GET /api/v1/top100</h3>
+                    <p>Get the leaderboard (100 girls).</p>
+                
+                    <h3>GET /api/v1/latestgirls</h3>
+                    <p>Get latest Added Girls.</p>
+                
+                    <h3>GET /api/v1/onlyverified</h3>
+                    <p>Get only verified girls.</p>
+                </article>
+            </p>
+        </details>
+    </article>
+    <br>
+    <div style="text-align: center; margin-top: 10px;">
+        <a href="{{ url_for('index') }}"><button class="girl-button2">Back to Home</button></a>
+    </div>
+    <br>
+    <br>
+    <a href="#" target="_blank"><small>Github</small></a>
+    <nav aria-label="breadcrumb" style="--pico-nav-breadcrumb-divider: '|';">
+        <ul class="centered-links">
+            <li><small><a href="/tos">TOS</a></small></li>
+            <li><small><a href="/privacy">Privacy</a></small></li>
+            <li><small><a href="/verify">Verify</a></small></li>
+            <li><small><a href="/api">API</a></small></li>
+        </ul>
+    </nav>
+    <div class="footer-container">
+        <small class="footer-text">2024 Bulmyeon.com | Made with <img class="verified-icon verified-icon-3" src="{{ url_for('static', filename='img/verified.svg') }}" alt="Verified"></img> by <a href="{{ url_for('currentlyonciawatchlist') }}" target="_blank">currentlyonciawatchlist</a></small>
+    </div>
+</body>
