@@ -59,7 +59,7 @@ Note: This is a public API, everyone can access the data.
 
 ## Installation
 
-1. Clone the repository: `#`
+1. Clone the repository: `https://github.com/currentlyonciawatchlist/Bulmyeon.git`
 2. `cd bulmyeon`
 3. (optional) Create a python virtual environment. 
 4. Install dependencies: `pip install -r requirements.txt`
