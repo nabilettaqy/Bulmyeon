@@ -28,12 +28,12 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'} # Images allowed exte
 MAX_PREVIEW_SIZE_MB = 5  # 5MB
 MAX_PREVIEW_SIZE_BYTES = MAX_PREVIEW_SIZE_MB * 1024 * 1024
 MODERATION_API_URL = 'https://api.moderatecontent.com/moderate/'
-MODERATION_API_KEY = '6360297f034edb6ac25e9df05adb9a10' # API key at https://moderatecontent.com/
+MODERATION_API_KEY = 'YOUR_API_KEY_HERE' # API key at https://moderatecontent.com/
 MAX_MODERATION_SCORE = 90  # Define the maximum allowed moderation score (adjust as needed)
 COMPRESSION_VALUE = 65  # Define the compression value for the media (adjust as needed)
 
 # Configure Flask
-app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'fc322da701c206024136e117ce3f6ee')  # Do not touch this!
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'YOUR_SECRET_KEY_HERE')  # Change this!
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.dirname(os.path.abspath(__file__)), 'db', 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'  # Default language is English

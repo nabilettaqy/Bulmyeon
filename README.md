@@ -1,4 +1,6 @@
-# bulmyeon.com
+# bulmyeon
+
+![Logo](images/logo.png)
 
 Welcome to bulmyeon.com - A Web App dedicated to voting for the most beautiful girls! This Full Stack development project includes a voting system, leaderboard, and an API for accessing the results and a lot more...
 
@@ -7,6 +9,8 @@ Welcome to bulmyeon.com - A Web App dedicated to voting for the most beautiful g
 "Bulmyeon" (불면) in Korean literally translates to "insomnia" in English. It is a term used to describe the inability to sleep or a sleep disorder where a person has difficulty falling asleep or staying asleep.
 
 ## Features
+
+![Main](images/index.png)
 
 - **Voting System:** Users can vote for the girl they consider the most beautiful.
 - **Leaderboard:** Real-time ranking of the most popular girls.
