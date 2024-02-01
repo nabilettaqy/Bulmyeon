@@ -1,6 +1,8 @@
 # bulmyeon
 
-![Logo](images/logo.png)
+<p align="center">
+  <img src="images/logo.png" />
+</p>
 
 Welcome to bulmyeon.com - A Web App dedicated to voting for the most beautiful girls! This Full Stack development project includes a voting system, leaderboard, and an API for accessing the results and a lot more...
 
